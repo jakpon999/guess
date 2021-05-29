@@ -27,6 +27,7 @@ namespace Guess.UnitTests
             Assert.That(result, Is.EqualTo(_guessGame.number));
             Assert.That(result, Is.GreaterThanOrEqualTo(min));
             Assert.That(result, Is.LessThanOrEqualTo(max));
+            Assert.That(_guessGame.triesCount, Is.EqualTo(0));
         }
 
         [Test]
@@ -39,6 +40,7 @@ namespace Guess.UnitTests
         public void Guess_WhenCalled_ReturnNumberWithInformationIfGuessWasCorrect(int guess, int number)
         {
             _guessGame.number = number;
+            int oldTriesCount = _guessGame.triesCount;
             int result = _guessGame.Guess(guess);
             if(guess > number)
             {
@@ -52,6 +54,8 @@ namespace Guess.UnitTests
             {
                 Assert.That(result, Is.EqualTo(0));
             }
+
+            Assert.That(_guessGame.triesCount, Is.EqualTo(oldTriesCount + 1));
         }
 
         [Test]
